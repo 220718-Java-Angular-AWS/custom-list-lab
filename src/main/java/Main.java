@@ -1,100 +1,59 @@
 import com.revature.CustomArrayList;
+import com.revature.CustomLinkedList;
 import com.revature.CustomList;
 
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<String> myList = new ArrayList<>();
-        myList.add("test");
-        myList.add("test");
-        myList.add("two");
-        myList.add("three");
-        myList.add("four");
-
-        System.out.println(myList);
-
-        myList.remove(0);
-        myList.remove("three");
-
-        System.out.println(myList);
-
-        myList.add(2, "three");
-
-        System.out.println(myList);
-
-        if(myList.isEmpty()) {
-            System.out.println("List is empty?");
-        }
-
-        myList.clear();
-        if(myList.isEmpty()) {
-            System.out.println("List is empty!");
-        }
+        System.out.println("Custom linked list tests: ");
+        CustomList<String> customLinkedList = new CustomLinkedList<>();
+        customLinkedList.add("Zero");
+        customLinkedList.add("One");
+        customLinkedList.add("Two");
+        customLinkedList.add("Three");
 
 
-        myList.add("test");
-        myList.add("test");
-        myList.add("two");
-        myList.add("three");
-        myList.add("four");
-        List<String> newList = myList.subList(2, 5);
-
-        System.out.println(newList);
-
-
-        Set<String> mySet = new HashSet<>();
-        mySet.add("Test");
-
-
-        for(String str : mySet) {
+        System.out.println("testing add: ");
+        for (String str : customLinkedList) {
             System.out.println(str);
         }
 
-        Deque<String> myDeque = new ArrayDeque<>();
-        myDeque.push("one");
-        myDeque.push("two");
-        myDeque.push("three");
+
+        System.out.println("testing get... ");
+        System.out.println(customLinkedList.get(1));
 
 
+        System.out.println("testing remove: ");
+        customLinkedList.remove(4);
+        customLinkedList.remove(2);
+        customLinkedList.remove(0);
 
-        while(!myDeque.isEmpty()) {
-            System.out.println(myDeque.removeLast());
-        }
-
-
-        CustomList<String> customList = new CustomArrayList<>();
-        customList.add("Hello");
-        customList.add("World!");
-
-
-
-        System.out.println("Custom list stuff: ");
-        for(String str : customList) {
+        for (String str : customLinkedList) {
             System.out.println(str);
         }
 
-        System.out.println("Custom list stuff after clear(): ");
-        customList.clear();
-        for(String str : customList) {
+        System.out.println("testing clear: ");
+        customLinkedList.clear();
+        for (String str : customLinkedList) {
             System.out.println(str);
         }
 
-        customList.add("Hello");//0
-        customList.add("Test");//1
-        customList.add("World");//2
-        customList.add("Test");//3
 
-        customList.remove("Test");
-        customList.remove(3);
+        System.out.println("testing remove(E e)...");
+        customLinkedList.add("Zero");
+        customLinkedList.add("One");
+        customLinkedList.add("Two");
+        customLinkedList.add("Three");
 
-        System.out.println("Custokm list after testing remove functionality...");
-        for(String str : customList) {
+        customLinkedList.remove("Zero");
+        customLinkedList.remove("Two");
+
+        for (String str : customLinkedList) {
             System.out.println(str);
         }
 
-        CustomList<Integer> c2 = new CustomArrayList<>();
-        c2.add(12);
+
 
 
     }

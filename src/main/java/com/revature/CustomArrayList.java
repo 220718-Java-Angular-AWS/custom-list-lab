@@ -6,6 +6,7 @@ public class CustomArrayList<E> implements CustomList<E> {
     float growFactor = 1.5f;
     int size = 4;
     int currentSize = 0;
+    final int maxSize = 100000;
     Object[] array = new Object[size];
 
 
@@ -18,6 +19,12 @@ public class CustomArrayList<E> implements CustomList<E> {
         currentSize++;
     }
 
+    public void add(int index, E e) {
+        for(int i = index + 1; i < array.length; i++) {
+            array[i] = array[i-1];
+        }
+    }
+
     @Override
     public E get(int index) {
         return (E)array[index];
@@ -27,7 +34,10 @@ public class CustomArrayList<E> implements CustomList<E> {
     public void remove(int index) {
         array[index] = null;
         //need to shift everything after the index to the left
-
+        for(int i = index; i < array.length; i++) {
+            array[i] = array[i+1];
+            array[i+1] = null;
+        }
 
         currentSize--;
     }
@@ -38,7 +48,8 @@ public class CustomArrayList<E> implements CustomList<E> {
         for(int i = 0; i < array.length; i++) {
             if(complete) {
                 //we've already removed the element, now we need to shift.
-
+                array[i-1] = array[i];
+                array[i] = null;
             } else if (array[i].equals(e)) {
                 complete = true;
                 remove(i);
@@ -64,6 +75,15 @@ public class CustomArrayList<E> implements CustomList<E> {
             temp[i] = array[i];
         }
         array = temp;
+    }
+
+    private void resizeArray(int index) {
+        if(index >= size && index <= maxSize) {
+            size = index + 1;
+
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     @Override

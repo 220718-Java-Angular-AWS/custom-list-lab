@@ -8,11 +8,25 @@ public class CustomLinkedList<E> implements CustomList<E> {
 
 
 
+
     @Override
     public void add(E e) {
         //implement this method
         //When we add an element to the list, we need to traverse the current list until we get to the end,
         //and then we need to set the next ref on the final node to point to the new final node.
+        Node<E> newNode = new Node<>();
+        newNode.obj = e;
+        if(head == null) {
+            head = newNode;
+        } else {
+            Node<E> cursor = head;
+            while(cursor.next != null) {
+                cursor = cursor.next;
+            }
+
+            cursor.next = newNode;
+        }
+
     }
 
     //This one is optional as we removed it from the interface
@@ -25,7 +39,12 @@ public class CustomLinkedList<E> implements CustomList<E> {
     public E get(int index) {
         //implement this method
         //you traverse the linked list until you reach the Nth (index) node, and return that.
-        return null;
+        Node<E> cursor = head;
+        for(int i = 0; i < index; i++)
+        {
+            cursor = cursor.next;
+        }
+        return cursor.obj;
     }
 
 
@@ -37,7 +56,28 @@ public class CustomLinkedList<E> implements CustomList<E> {
         //if we are removing the front or back end of the list all we need to do is update the references to not point
         //to the now missing node. If the node is in the middle, you have to "splice" by adjusting the references
         //on either side of the removed node
+        Node<E> cursor = head;
+        Node<E> prev = null;
+        int i = 0;
+        while(cursor != null) {
+            if(i == index) {
+                //we found the node holding the object in question, and now we need to remove.
+                //For a singly-linked list: either we are at the head, or we are not.
+                if (cursor == head) {
+                    //we're still at the head, let's lop it off.
+                    head = cursor.next;
+                    break;
+                } else {
+                    //splice out the node
+                    prev.next = cursor.next;
+                    break;
+                }
 
+            }
+            prev = cursor;
+            cursor = cursor.next;
+            i++;
+        }
     }
 
     @Override
@@ -78,17 +118,20 @@ public class CustomLinkedList<E> implements CustomList<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
+            Node<E> cursor = head;
 
             @Override
             public boolean hasNext() {
-                //implement this method
-                return false;
+                return (cursor != null);
             }
 
             @Override
             public E next() {
                 //implement this method
-                return null;
+                E e = cursor.obj;
+                cursor = cursor.next;
+                return e;
+
             }
         };
     }
