@@ -4,9 +4,7 @@ import java.util.Iterator;
 
 public class CustomLinkedList<E> implements CustomList<E> {
     Node<E> head;
-    //Node<E> tail; - only necessary for doubly-linked-list
-
-
+    Node<E> tail;
 
 
     @Override
@@ -25,14 +23,35 @@ public class CustomLinkedList<E> implements CustomList<E> {
             }
 
             cursor.next = newNode;
+            newNode.prev = cursor;
         }
+        tail = newNode;
 
     }
 
     //This one is optional as we removed it from the interface
-    public E add(int index, E e) {
-        //this one is optional
-        return null;
+    public void add(int index, E e) {
+
+        if(index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        Node<E> newNode = new Node<>();
+        newNode.obj = e;
+        Node<E> cursor = head;
+
+        for(int i = 0; i < index; i++) {
+            if (cursor.next == null) {
+                throw new IndexOutOfBoundsException();
+            }
+            cursor = cursor.next;
+        }
+        Node<E> temp = cursor.prev;
+        newNode.next = cursor;
+        newNode.prev = cursor.prev;
+        cursor.prev = newNode;
+        temp.next = newNode;
+
     }
 
     @Override
@@ -143,7 +162,7 @@ public class CustomLinkedList<E> implements CustomList<E> {
 
         E obj;
         Node<E> next;
-        //Node<E> prev; - only necessary for doubly-linked-list
+        Node<E> prev;
 
 
     }
