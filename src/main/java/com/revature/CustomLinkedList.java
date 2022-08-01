@@ -31,7 +31,6 @@ public class CustomLinkedList<E> implements CustomList<E> {
 
     //This one is optional as we removed it from the interface
     public void add(int index, E e) {
-
         if(index < 0) {
             throw new IndexOutOfBoundsException();
         }
@@ -89,6 +88,7 @@ public class CustomLinkedList<E> implements CustomList<E> {
                 } else {
                     //splice out the node
                     prev.next = cursor.next;
+                    cursor.next.prev = prev;
                     break;
                 }
 
